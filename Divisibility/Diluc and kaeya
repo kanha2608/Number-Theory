@@ -1,0 +1,48 @@
+Regarding portioning .
+
+if current segment has x:y, then this can be brought down to smallest possible ratio.
+
+eg. 
+
+current has ratio = 6,3 then this is equivalent to 2:1 
+so answer for this segment is equal to answer of 2:1
+
+Maintain a dp that stores answer. 
+
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define pi pair<int,int>
+
+int main() {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int t;
+	cin>>t;
+	while(t--){
+		int n, temp, a, b;
+		cin>>n;
+		string s;
+		cin>>s;
+
+		map<pi,int> dp;
+		int cntd = 0, cntk = 0;
+		for(int i = 0; i < n; i++){
+			cntd += (s[i] == 'D');
+			cntk += (s[i] == 'K');
+
+			temp = __gcd(cntd, cntk);
+
+			a = cntd/temp, b = cntk/temp;
+
+			dp[{a,b}]++;
+			cout<<dp[{a,b}]<<" ";
+		}
+		cout<<"\n";
+
+	}
+	
+}
