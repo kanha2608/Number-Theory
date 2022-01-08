@@ -19,3 +19,15 @@ gives the number of coprime numbers to n between 1 and n. For example,
 The value of ϕ(n) can be calculated from the prime factorization of n using
 the formula
 ϕ(n) = product of( pi ^ (ai -1) ) (pi - 1 )    for all factors of n.
+
+# Modular Arithmetic. 
+
+(x+ y) mod m = (x mod m+ y mod m) mod m
+(x− y) mod m = (x mod m− y mod m) mod m
+(x · y) mod m = (x mod m· y mod m) mod m
+x^n mod m = (x mod m)^n mod m
+
+x^-1 mod m  =   x ^(m-2) mod m
+
+x^-1  = x ^(ET-  1)   ET for prime is m-1 
+x^-1 = x^(m-2)
