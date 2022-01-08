@@ -1,0 +1,70 @@
+You are given n positive integers a1,…,an, and an integer k≥2. Count the number of pairs i,j such that 1≤i<j≤n, and there exists an integer x such that ai⋅aj=x^k
+
+Here, logic 
+1. factor function that gives us the prime factorization of the required number. in (sqrt(x)).
+Here, We add that pair only whose ai % k != 0.
+vector<pi> factor(int number){
+	vector<pi> temp;
+
+	for(int i = 2; i*i <= number; i++){
+		int cnt = 0;
+		while(number % i == 0){
+			cnt++;
+			number /= i;
+		}
+		if(cnt % k){ 
+			temp.push_back({i,cnt%k});    // This is the point. 
+		}
+	}
+	if(number > 1){
+		temp.push_back({number,1});
+	}
+	return temp;
+   
+}
+Suppose x =  [ { p1, a1} , {p2,a2}, {p3, a3}] 
+here a1, a2 and a3 are remainder by k.
+
+2.
+now it need any y =   [ { p1,k - a1} , {p2,k - a2}, {p3, k -a3}];
+
+So this will be calculate in reverse function.
+
+int n, k;
+vector<pi> find_factor_inverse(vector<pi> original){
+	int number_of_primes = original.size();
+	vector<pi> inverse;
+	for (int i = 0; i < number_of_primes; i++) {
+		inverse.push_back({original[i].first, k - original[i].second});
+	}
+	return inverse;
+}
+
+3. 
+Create a map that stores frequency of vector of pair of factors.
+
+
+map<vector<pi>, int > factor_freq;;
+
+vector<int> arr(n);
+for(int i = 0 ; i < n; i++){
+    cin>>arr[i];
+    factor_freq[factor(arr[i])]++;
+}
+
+long long ans = 0;
+
+for(int i = 0 ; i < n; i++){
+    if(factor(arr[i]) == find_factor_inverse(factor(arr[i]))){
+        ans += (factor_freq[factor(arr[i])] - 1);   // pair with all except itself so -1.
+    }
+    else{
+        ans += factor_freq[find_factor_inverse(factor(arr[i]))];
+    }
+}
+
+cout<<ans/2<<"\n";   // Each pair has been counted twice. so /2. 
+
+
+
+full code:- https://codeforces.com/contest/1225/submission/142023596
