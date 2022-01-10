@@ -1,0 +1,46 @@
+calculate gcd({lcm(ai, aj)}, i < j )
+
+suppose example,   
+
+10 24 8 12
+
+10*{24, 8 ,12} ,  24*(8 , 12) , 8*(12)
+g1                   g2          g3
+so answer will be gcd(g1, g2, g3);
+
+to calculate g1 = arr[i]*(gcd(i+1,to n))/gcd(i to n)
+
+to calculate gcd we store in suffix array.
+
+#include<bits/stdc++.h>
+
+using namespace std;
+#define ll long long
+#define pi pair<int,int>
+
+
+const int maxN = 2e6;
+
+int main() {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	int n;
+	cin>>n;
+
+	vector<int> arr(n);
+	for(int i = 0 ; i < n; i++){
+		cin>>arr[i];
+	}
+	vector<int> suff(n);
+	suff[n-1] = arr[n-1];
+	for(int i = n-2; i >= 0 ; i--){
+		suff[i] = __gcd(suff[i+1], arr[i]);
+	}
+	
+	ll ans = 0;
+	for(int i = 0 ; i < n-1; i++){
+		ans = __gcd(ans, arr[i]*1LL*suff[i+1]/suff[i]);
+	}
+	cout<<ans<<"\n";
+
+}
