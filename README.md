@@ -34,7 +34,7 @@ x^-1 = x^(m-2)
 
 
 # Min xor of pair in array
-Here, we just the array the answer will be the minimum of two consecutive 
+Here, we just sort the array the answer will be the minimum of two consecutive 
 How does this work ? 
 suppose, A^B is min and there exist a C in between A and B;
 Now suppose ith bit is highest index which A and B differs. 
