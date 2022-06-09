@@ -31,3 +31,15 @@ x^-1 mod m  =   x ^(m-2) mod m
 
 x^-1  = x ^(ET-  1)   ET for prime is m-1 
 x^-1 = x^(m-2)
+
+
+# Min xor of pair in array
+Here, we just the array the answer will be the minimum of two consecutive 
+How does this work ? 
+suppose, A^B is min and there exist a C in between A and B;
+Now suppose ith bit is highest index which A and B differs. 
+Then this means if C[i] == A[i] then A^C < A^B
+if C[i] == B[i] then B^C < A^B;
+
+so both way better to include C. 
+
