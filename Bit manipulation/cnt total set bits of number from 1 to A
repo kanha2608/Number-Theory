@@ -1,0 +1,45 @@
+// 00001
+// 00010
+// 00011
+// 00100
+// 00101
+// 00110
+// 00111
+// 01000
+// 01001
+// 01010
+// 01011
+// 01100
+// 01101
+// 01110
+// 01111
+
+Here writing recursive approach. 
+We know the fact total set bit for 1 to 2^n is (2^n-1)*n;
+so we call recursive for the remaining number.
+
+eg. we are doing for  A= 12 so we first find the largest 2's power which is smaller than A. so then we get answer upto that
+by formula now adding MSB for A - (q- 1) times and now call recursive for the remaining.
+
+
+
+#define ll long long
+int Solution::solve(int A) {
+    const int mod = 1e9 + 7;
+    function<long long(int)> util = [&](int num){
+        if(num < 2) return 1LL*num;
+        int q = 1, cnt = 0;
+        long long ans = 0;
+        while((q << 1) <= num){
+            q <<= 1;
+            cnt++;
+        }  
+        // cout<<q<<" "<<cnt<<" ";
+        ans = (q >> 1)*1LL*cnt%mod;
+        
+        (ans += num - q + 1 + util(num - q))%=mod;
+        return ans%mod;
+    };
+    
+    return util(A);
+}
