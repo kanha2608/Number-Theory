@@ -1,0 +1,43 @@
+1. Use the formula. G[i] = i ^( i >> 1);
+second using the backtracking
+
+00
+01
+11
+10 
+so next n = 3 all four same + 100 added from reverse side.
+
+vector<int> Solution::grayCode(int A) {
+    vector<int> ans;
+    ans.push_back(0);
+    for(int i = 0; i < A; i++){
+        int sz = ans.size();
+        for(int j = sz - 1; j >= 0; j--){
+            ans.push_back(ans[j] + (1 << i));
+        }
+    }
+    return ans;
+}
+
+
+3.  similar to i ^( i >> 1);
+class Solution {
+public:
+    vector<int> grayCode(int n) {
+        vector<int> ans;
+        for(int i = 0; i < (1 << n); i++){
+            int curr = 0, val = 0, pre = 0, temp = 0;
+            for(int j = 17; j >= 0; j--){
+                curr = ((i >> j) & 1);
+                
+                temp = curr ^ pre;
+                val |= (temp << j);
+                
+                pre = curr;
+            }
+           
+            ans.push_back(val);
+        }
+        return ans;
+    }
+};
