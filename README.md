@@ -33,6 +33,12 @@ x^-1  = x ^(ET-  1)   ET for prime is m-1
 x^-1 = x^(m-2)
 
 
+
+# Gray code:-
+G[i] = i ^ ( i >> 1);
+
+
+
 # Min xor of pair in array
 Here, we just sort the array the answer will be the minimum of two consecutive 
 How does this work ? 
