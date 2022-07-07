@@ -1,0 +1,89 @@
+1st method using bfs.
+
+assume first string as 11 now.
+if len is even then we can add either 0 or 1 in the string and add that in queue.
+now if len is even then simply we have to copy the middle part.
+
+
+
+2. best approach. 
+Try to see the pattern
+
+
+suppose somehow you got the length now.
+
+1-------1
+now all counting from 0 to left half all one will give me representation
+
+eg. 
+100000001
+100010001
+100101001
+1010   just copy this part to right half and you are done.
+1011
+1100
+1101
+1110
+1111
+
+int Solution::solve(int A) {
+    if(A == 1) return 1;
+    if(A == 2) return 3;
+    
+    int curr = 0, len = 1;  
+    // assuming zero based indexing.
+    while(1){
+        if(curr + (1 << ((len-1)/2)) >= A) break;   // This part is amazing. 
+        curr += (1 << ((len-1)/2));
+        len++;
+    }
+    // return len;
+    string ans(len, '0');
+    ans[0] = ans[len-1] = '1';
+    
+    auto gt = [&](int num){
+        string res = "";
+        while(num){
+            res =  to_string(num%2) + res;
+            num >>= 1;
+        }  
+        return res;
+    };
+    
+    string bn = gt(A-1-curr);
+    int l = len/2, r= len/2;
+    if(len%2 == 0){
+        l--;
+    }
+    int nbn = bn.size(), t = nbn - 1;
+    while(t >= 0){
+        ans[l] = ans[r] = bn[t];
+        l--;
+        r++;
+        t--;
+    }
+    auto val = [&](string num){
+        int len = num.size(), i = 0;
+        int r = 0;
+        while(i < len){
+            r <<= 1;
+            r |= (num[i] - '0');
+            i++;
+        }
+        return r;
+    };
+    return val(ans);
+    
+}
+
+
+// 1
+// 11      -> len = 2
+// 101     -> len = 3
+// 111 
+// 1001    -> len = 4
+// 1111
+// 10001   
+// 10101
+// 11011
+// 11111
